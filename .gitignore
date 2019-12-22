@@ -1,0 +1,15 @@
+# Development files and paths
+bin/
+CMakeFiles/
+indev/
+*.cmake
+CMakeCache.txt
+Makefile
+PopFilter
+
+# IDE files
+*.kdev4
+.kdev/
+
+# App generated files
+plot_data.dat
