@@ -58,10 +58,10 @@ size_t FFT_1Dfast(float *din, float *dout, size_t n)
 
 	dout[0] = 0;
 	size_t arr_i = 1;
-    for (i = 1; i < n / 2; i <<= 1) {
+	for (i = 1; i < n / 2; i <<= 1) {
 		real = 0.0f;
-        for (t = 0; t < n; ++t)
-            real += din[t] * getFastCosine(t * i * inv_n);
+		for (t = 0; t < n; ++t)
+			real += din[t] * getFastCosine(t * i * inv_n);
 
 		dout[arr_i++] = real * inv_n;
 	}
@@ -76,12 +76,12 @@ size_t DFT_1Dfast(float *din, float *dout, size_t n)
 	size_t i, t;
 	Timer timer("DFT_1Dfast");
 
-    for (i = 0; i < n / 2; ++i) {
+	for (i = 0; i < n / 2; ++i) {
 		if ((i & 0x3FF) == 0x3FF)
 			timer.tick();
 
 		real = 0.0f;
-        for (t = 0; t < n; ++t)
+		for (t = 0; t < n; ++t)
 			real += din[t] * getFastCosine(t * i * inv_n);
 
 		dout[i] = real * inv_n;
@@ -98,19 +98,19 @@ size_t DFT_1Dstd(float *din, float *dout, size_t n)
 	
 	dout[0] = 0;
 
-    for (i = 1; i < n / 2; ++i) {
+	for (i = 1; i < n / 2; ++i) {
 		float real = 0.0f;
 		//float imag = 0.0f;
 		if ((i & 0x3FF) == 0x3FF)
 			timer.tick();
 
-        for (t = 0; t < n; ++t) {
-            angle = 2.0f * (float)M_PI * t * i * inv_n;
-            real += din[t] * std::cos(angle);
-            //imag += -din[t] * std::sin(angle);
-        }
-        dout[i] = real * inv_n;
+		for (t = 0; t < n; ++t) {
+			angle = 2.0f * (float)M_PI * t * i * inv_n;
+			real += din[t] * std::cos(angle);
+			//imag += -din[t] * std::sin(angle);
+		}
+		dout[i] = real * inv_n;
 		//dout[i] = std::hypot(real, imag) / n;
-    }
-    return i;
+	}
+	return i;
 }
